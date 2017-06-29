@@ -19,6 +19,7 @@ class BusController extends Controller
 {
     public $layout = 'busPark';
 
+    // главная страница (список водителей)
     public function actionIndex() {
 
         // достаем из таблицы Driver все записи
@@ -35,7 +36,6 @@ class BusController extends Controller
         };
 
         // пагинация
-//        $query = Driver::find()->where(['first_name' => true]);
         $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => 4,
             'forcePageParam' => false, 'pageSizeParam' => false]);
         $drivers = $query->offset($pages->offset)->limit($pages->limit)->all();
@@ -43,6 +43,7 @@ class BusController extends Controller
         return $this->render('index', compact('drivers', 'age', 'pages'));
     }
 
+    // страница редактирования
     public function actionAdmin() {
 
         $driver = new Driver();
@@ -65,5 +66,22 @@ class BusController extends Controller
         }
 
         return $this->render('admin', compact('driver', 'busesArr'));
+    }
+
+    // обработка нажатия на checkbox "Активен"
+    public function actionActive() {
+
+        $driver = Driver::findOne($_POST);
+
+        if (Yii::$app->request->isAjax) {
+
+            if ($driver['active'] == 1) {
+                $driver['active'] = 0;
+            } else {
+                $driver['active'] = 1;
+            }
+
+            if ($driver->save()) return 'success';
+        }
     }
 }

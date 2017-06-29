@@ -9,27 +9,27 @@ use yii\helpers\Html;
 use \yii\widgets\LinkPager;
 ?>
 
-<h2>Список водителей:</h2>
+<h1>Список водителей:</h1>
 
-<?php
-foreach ($drivers as $driver) {
-    echo $driver['first_name'] .' '. $driver['last_name'] . '<br>';
-    echo 'возраст: ' . $age($driver['birth_date']) . '<br>';
-    echo 'телефон: ' . $driver['mobile'] . '<br>';
-    echo 'модели автобусов: ';
-    $bus_list = array();
+<?php foreach ($drivers as $driver) { ?>
+    <?= $driver['first_name'] .' '. $driver['last_name'] ?> <br>
+    возраст: <?= $age($driver['birth_date']) ?> <br>
+    телефон: <?= $driver['mobile'] ?> <br>
+    модели автобусов:
+    <?php $bus_list = array();
     foreach ($driver->buses as $bus) {
         $bus_list[] = $bus['model'];
-    }
-    echo implode(', ', $bus_list) . '<br>';
+    } ?>
+    <?= implode(', ', $bus_list) ?> <br>
 
-    $checked = false;
-    if ($driver['active']) $checked = true;
+    // проверка активности водителя
+    <?php $checked = false;
+    if ($driver['active']) $checked = true; ?>
 
-    echo Html::checkbox('Active', $checked, ['class' => 'active', 'id' => $driver['id']]) . ' Активен';
-    echo '<br><br>';
-}
-echo LinkPager::widget([
+    <?= Html::checkbox('active_driver', $checked, ['class' => 'active', 'id' => $driver['id']]) ?> ' Активен'
+    <br><br>
+<?php } ?>
+
+<?php echo LinkPager::widget([
     'pagination' => $pages,
-]);
-?>
+]) ?>
