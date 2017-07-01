@@ -9,10 +9,10 @@
 namespace app\controllers;
 
 use Yii;
-use app\models\Bus;
 use app\models\Driver;
-use yii\data\Pagination;
 use yii\web\Controller;
+use yii\data\Pagination;
+use yii\web\NotFoundHttpException;
 
 
 class BusController extends Controller
@@ -58,14 +58,7 @@ class BusController extends Controller
             }
         }
 
-        // создание массива моделей автобусов
-        $buses = Bus::find()->all();
-        $busesArr = array();
-        foreach ($buses as $oneBus) {
-            $busesArr[] = $oneBus['model'];
-        }
-
-        return $this->render('admin', compact('driver', 'busesArr'));
+        return $this->render('admin', compact('driver'));
     }
 
     // обработка нажатия на checkbox "Активен"
@@ -82,6 +75,33 @@ class BusController extends Controller
             }
 
             if ($driver->save()) return 'success';
+        }
+    }
+
+    public function actionUpdate($id)
+    {
+        $driver = $this->findModel($id);
+
+        if ($driver->load(Yii::$app->request->post()) && $driver->save()) {
+            return $this->redirect(['index', 'id' => $driver->id]);
+        } else {
+            return $this->render('update', compact('driver'));
+        }
+    }
+
+    public function actionDelete($id)
+    {
+        if ($this->findModel($id)->delete()) {
+            return $this->redirect(['index']);
+        }
+    }
+
+    protected function findModel($id)
+    {
+        if (($model = Driver::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
 }

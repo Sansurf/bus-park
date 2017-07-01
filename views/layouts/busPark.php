@@ -1,7 +1,8 @@
 <?php
-use yii\helpers\Html;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use app\assets\AppAsset;
+
 AppAsset::register($this);
 
 $this->title = 'Автобусный парк';
@@ -25,7 +26,8 @@ $this->title = 'Автобусный парк';
 
 <div class="wrap">
     <div class="container">
-        <h1><?= Html::encode($this->title) ?></h1>
+        <h1><b><?= Html::encode($this->title) ?></b></h1>
+        <hr>
         <ul>
             <li>
                 <?= Html::a('Список водителей', Url::to('/')) ?></li>

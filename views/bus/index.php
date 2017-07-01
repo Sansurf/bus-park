@@ -9,6 +9,7 @@ use yii\helpers\Html;
 use \yii\widgets\LinkPager;
 ?>
 
+
 <h1>Список водителей:</h1>
 
 <?php foreach ($drivers as $driver) { ?>
@@ -22,11 +23,19 @@ use \yii\widgets\LinkPager;
     } ?>
     <?= implode(', ', $bus_list) ?> <br>
 
-    // проверка активности водителя
+    <!-- проверка активности водителя -->
     <?php $checked = false;
     if ($driver['active']) $checked = true; ?>
 
-    <?= Html::checkbox('active_driver', $checked, ['class' => 'active', 'id' => $driver['id']]) ?> ' Активен'
+    <?= Html::checkbox('active_driver', $checked, ['class' => 'active', 'id' => $driver['id']]) ?> Активен |
+    <?= Html::a('', ['delete', 'id' => $driver->id], [
+        'class' => 'glyphicon glyphicon-trash',
+        'data' => [
+            'confirm' => 'Удалить этого водителя?',
+            'method' => 'post',
+        ],
+    ]) ?>
+    <?= Html::a('', ['update', 'id' => $driver->id], ['class' => 'glyphicon glyphicon-pencil']) ?>
     <br><br>
 <?php } ?>
 

@@ -6,13 +6,15 @@
  * Time: 22:43
  */
 
-use yii\widgets\ActiveForm;
+use app\models\Bus;
 use yii\helpers\Html;
-use yii\widgets\MaskedInput;
 use yii\jui\DatePicker;
+use yii\widgets\ActiveForm;
+use yii\widgets\MaskedInput;
 ?>
 
-<h2>Админ панель</h2>
+
+<h1>Админ панель</h1>
 
 <!-- Сообщение при успешном сохранении данных -->
 <?php if (Yii::$app->session->hasFlash('success')): ?>
@@ -36,7 +38,7 @@ use yii\jui\DatePicker;
 <?= $form->field($driver, 'last_name') ?>
 <?= $form->field($driver, 'mobile')->widget(MaskedInput::className(), ['mask' => '+9(999)999-99-99']) ?>
 <?= $form->field($driver, 'birth_date')->widget(DatePicker::classname()) ?>
-<?= $form->field($driver, 'bus_ids')->label('Модели автобусов')->checkboxList($busesArr) ?>
+<?= $form->field($driver, 'bus_ids')->checkboxList(Bus::listAll()) ?>
 <?= $form->field($driver, 'active')->checkbox(['checked ' => '']) ?>
 <?= Html::submitButton('OK', ['class' => 'btn btn-success']) ?>
 <?php ActiveForm::end() ?>

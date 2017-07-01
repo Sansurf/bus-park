@@ -23,7 +23,7 @@ class Driver extends ActiveRecord
             [
                 'class' => \voskobovich\linker\LinkerBehavior::className(),
                 'relations' => [
-                    'bus_ids' => 'buses',
+                    'bus_ids' => 'buses'
                 ],
             ],
         ];
@@ -37,6 +37,7 @@ class Driver extends ActiveRecord
             'mobile' => 'Телефон',
             'birth_date' => 'Дата рождения',
             'active' => 'Активен',
+            'bus_ids' => 'Модели автобусов'
         ];
     }
 
