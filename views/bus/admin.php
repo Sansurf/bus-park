@@ -39,6 +39,6 @@ use yii\widgets\MaskedInput;
 <?= $form->field($driver, 'mobile')->widget(MaskedInput::className(), ['mask' => '+9(999)999-99-99']) ?>
 <?= $form->field($driver, 'birth_date')->widget(DatePicker::classname()) ?>
 <?= $form->field($driver, 'bus_ids')->checkboxList(Bus::listAll()) ?>
-<?= $form->field($driver, 'active')->checkbox() ?>
+<?= $form->field($driver, 'active')->checkbox(['checked ' => '']) ?>
 <?= Html::submitButton('OK', ['class' => 'btn btn-success']) ?>
 <?php ActiveForm::end() ?>
