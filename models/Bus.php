@@ -13,7 +13,8 @@ use yii\helpers\ArrayHelper;
 
 class Bus extends ActiveRecord
 {
-    public static function listAll($keyField = 'id', $valueField = 'model', $asArray = true) {
+    public static function listAll($keyField = 'id', $valueField = 'model', $asArray = true)
+    {
         $query = static::find();
         if ($asArray) {
             $query->select([$keyField, $valueField])->asArray();

@@ -7,14 +7,16 @@
  */
 use yii\helpers\Html;
 use \yii\widgets\LinkPager;
+use app\models\Driver;
 ?>
 
 
 <h1>Список водителей:</h1>
 
 <?php foreach ($drivers as $driver) { ?>
+
     <?= $driver['first_name'] .' '. $driver['last_name'] ?> <br>
-    возраст: <?= $age($driver['birth_date']) ?> <br>
+    возраст: <?= Driver::age($driver['id']) ?> <br>
     телефон: <?= $driver['mobile'] ?> <br>
     модели автобусов:
     <?php $bus_list = array();

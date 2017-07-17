@@ -50,4 +50,11 @@ class Driver extends ActiveRecord
             [['bus_ids', 'active'], 'safe']
         ];
     }
+
+    public static function age($id)
+    {
+        $query = static::find()->select('birth_date')->where(['id' => $id])->asArray()->one();
+
+        return floor((time()-strtotime(implode($query)))/(60*60*24*365.25));
+    }
 }
